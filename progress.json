@@ -1,0 +1,60 @@
+{
+  "project": "wuxia-dialogue-01",
+  "path": "E:/GameForgeLab/agent-game-forge-workspace/games/wuxia-dialogue-01",
+  "remote": "git@github.com:GK0421/KKKG.git",
+  "remote_branch_pushed": "feature/wuxia-dialogue-v1",
+  "remote_main_pushed": false,
+  "remote_main_status": "本地 main 与远端 main 同步在 mobile-prototype-01 init 1bf5b0c (KKKG 远端 main 是 mobile-prototype-01 项目). wuxia-dialogue-01 的内容仅在 feature/wuxia-dialogue-v1 分支 (f33899d).",
+  "updated_at": "2026-06-05T23:45:00Z",
+  "last_check": "phase-1-feature-pushed",
+  "pending": [
+    "剧本扩写到 1 万字 (按 WORDCOUNT_PROGRESS.md)",
+    "user-opens-pr-feature-wuxia-dialogue-v1-to-main-if-needed"
+  ],
+  "running": [],
+  "completed": [
+    "phase-1-write-project-brief",
+    "phase-1-write-script-json-skeleton-4148-chars",
+    "phase-1-write-scenes-json",
+    "phase-1-write-characters-json",
+    "phase-1-write-choices-json",
+    "phase-1-write-src-constants-typography-renderer-choices-memory-script-input-hud-text-area-game",
+    "phase-1-reuse-v1-state-dom-assets-audio-particles-collision-dialogue",
+    "phase-1-write-index-html-styles-css-package-json-gitignore",
+    "phase-1-write-smoke-sh-and-offline-check-js",
+    "phase-1-smoke-24-of-24-files-200",
+    "phase-1-offline-check-7-of-7-passed",
+    "phase-1-feature-branch-pushed-to-remote",
+    "phase-1-local-main-reset-to-origin-main"
+  ],
+  "failed": [
+    {
+      "id": "main-push-rejected",
+      "reason": "本地 main 起点 (wuxia init f33899d) 与远端 main (mobile-prototype-01 init 1bf5b0c) 无共同祖先, fast-forward 不可行, force-push 被规则禁止. 解决: 本地 main 硬重置到 origin/main. wuxia-dialogue-01 内容仅在 feature/wuxia-dialogue-v1 分支, 远端 KKKG 仓库的 main 仍是 mobile-prototype-01."
+    }
+  ],
+  "script_metrics": {
+    "current_chars": 4148,
+    "target_chars": 10000,
+    "achievement_pct": 41.5,
+    "scenes": 6,
+    "memories": 4,
+    "branch_points": 1,
+    "endings_defined": 3,
+    "endings_reachable": 2,
+    "scenes_covered_by_scenes_json": "all",
+    "characters_defined": 7
+  },
+  "smoke_results": {
+    "files_checked": 24,
+    "files_passed": 24,
+    "files_failed": 0
+  },
+  "offline_check_results": {
+    "checks_total": 7,
+    "checks_passed": 7,
+    "checks_failed": 0,
+    "bfs_reached": ["scene_01", "scene_02", "scene_03", "scene_04", "scene_05", "scene_06", "ending_tea", "ending_silent"],
+    "bfs_unreachable": ["ending_rain"]
+  }
+}
