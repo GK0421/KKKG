@@ -88,7 +88,6 @@ async function switchScene(levelId, opts = {}) {
 }
 
 function updateScene(dt) {
-  if (state.mode !== "playing" && state.mode !== "title" && state.mode !== "gameover") return;
   if (state.mode === "playing") {
     updatePlayer(dt);
     updateEnemies(dt);
@@ -96,6 +95,13 @@ function updateScene(dt) {
     updateCamera(dt);
     updatePickups(dt);
     updateAttackStubs(dt);
+    return;
+  }
+  // On title / paused / gameover we still want the camera + background
+  // parallax to drift a tiny bit (so the title screen doesn't look frozen),
+  // but the gameplay systems stay paused.
+  if (state.mode === "title" || state.mode === "gameover") {
+    updateCamera(dt);
   }
 }
 
