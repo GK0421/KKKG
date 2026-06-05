@@ -2,12 +2,12 @@
   "project": "agent-game-forge-mobile-prototype-01",
   "path": "E:/GameForgeLab/agent-game-forge-workspace/games/mobile-prototype-01",
   "remote": "https://github.com/GK0421/KKKG.git",
+  "ssh_remote": "git@github.com:GK0421/KKKG.git",
   "remote_name": "KKKG (per user override; original task asked for agent-game-forge-mobile-prototype)",
-  "updated_at": "2026-06-05T22:45:00Z",
-  "last_check": "phase-5-push-blocked-by-missing-credentials",
+  "updated_at": "2026-06-05T22:52:00Z",
+  "last_check": "phase-5-push-completed-both-branches",
   "pending": [
-    "phase-5-push-main-and-feature-to-remote",
-    "phase-5-create-pr-link-after-push"
+    "user-creates-pr-on-github"
   ],
   "running": [],
   "completed": [
@@ -30,32 +30,34 @@
     "phase-5-feature-commit-touch-deadzone",
     "phase-5-feature-commit-scene-camera-drift",
     "phase-5-feature-commit-smoke-auto-server",
-    "phase-5-remote-added"
+    "phase-5-remote-added",
+    "phase-5-ssh-keygen",
+    "phase-5-ssh-connectivity-verified",
+    "phase-5-push-main",
+    "phase-5-push-feature-branch"
   ],
-  "failed": [
-    {
-      "id": "git-push-blocked-no-credentials",
-      "reason": "git push -u origin main returned: 'fatal: could not read Username for https://github.com: No such device or address'. There is no SSH key (~/.ssh/ missing), no global credential.helper, no gh CLI, no cached token. Per the user's hard rules, Hermes does NOT install gh, does NOT write plaintext tokens, and does NOT change global git config. Push must be done by the user in an environment with credentials configured.",
-      "local_state": "Branch main: 1 commit (1bf5b0c). Branch feature/mobile-prototype-v1: 3 additional commits (90efe97, dd1439c, 764a55a). Remote origin is configured to https://github.com/GK0421/KKKG.git.",
-      "recovery": "User runs ONE of: (1) configure SSH key + `git remote set-url origin git@github.com:GK0421/KKKG.git` + `git push -u origin main && git push -u origin feature/mobile-prototype-v1`; or (2) install gh + `gh auth login` + `gh repo sync`; or (3) paste a Personal Access Token into the credential helper (git credential-store / Windows Credential Manager)."
-    }
-  ],
+  "failed": [],
   "blocked": [
     {
-      "id": "gh-cli-missing",
-      "note": "gh CLI is not installed and was not installed (per hard rules). PR creation therefore falls back to: after push, user opens the PR URL manually on github.com, or we leave a clear blocker note in the README. No fake PR link will be emitted."
+      "id": "pr-creation-by-user",
+      "note": "gh CLI is not installed and was not installed (per hard rules). PR creation therefore falls back to: user opens the PR URL on github.com. GitHub provided this URL when we pushed feature/mobile-prototype-v1: https://github.com/GK0421/KKKG/pull/new/feature/mobile-prototype-v1. Title and body should follow PROJECT_BRIEF.md §10. No fake PR link will be emitted by Hermes."
     }
   ],
+  "branches_pushed": {
+    "main": {
+      "commits": 1,
+      "tip_sha": "1bf5b0c",
+      "tip_message": "chore: initialize AGF mobile prototype v1"
+    },
+    "feature/mobile-prototype-v1": {
+      "commits": 4,
+      "tip_sha": "d370efa",
+      "tip_message": "chore: update progress.json to reflect push blocker"
+    }
+  },
   "smoke_results": {
     "files_checked": 38,
     "files_passed": 38,
-    "files_failed": 0,
-    "all_categories": {
-      "root_and_entry": ["200 /", "200 /index.html", "200 /styles.css"],
-      "src_count": 22,
-      "data_count": 12,
-      "src_all_200": true,
-      "data_all_200": true
-    }
+    "files_failed": 0
   }
 }
