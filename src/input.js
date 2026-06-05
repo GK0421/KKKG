@@ -34,7 +34,14 @@ const KEY_BINDINGS = {
 };
 
 // Touch deadzone radius (in CSS pixels) before the virtual stick reports direction.
-const TOUCH_DEADZONE = 18;
+// 22 is a touch larger than typical (18) because on mobile-portrait the player's
+// thumb covers a bigger screen area and accidental small drags should not register
+// as movement.
+const TOUCH_DEADZONE = 22;
+
+// Minimum interval (ms) between two right-half taps. Below this we ignore the
+// new tap to debounce accidental double-fires when a finger lands and rolls.
+const TAP_DEBOUNCE_MS = 140;
 
 function initInput() {
   window.addEventListener("keydown", (event) => {
@@ -75,7 +82,7 @@ function onPointerDown(event) {
   const now = performance.now();
   // Right half of the canvas = jump. Single-tap on right half triggers a
   // jump on pointerdown (no need to wait for pointerup).
-  if (isRightHalf(event.clientX) && now - input.touch.lastTap > 120) {
+  if (isRightHalf(event.clientX) && now - input.touch.lastTap > TAP_DEBOUNCE_MS) {
     input.touch.jumpQueued = true;
     input.touch.tapQueued = true; // also queues a generic tap for title/gameover
     input.touch.lastTap = now;
