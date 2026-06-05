@@ -1,0 +1,4 @@
+{
+  "_doc": "Projectiles catalog. v1 has no projectile enemies; the file is kept empty so the AGF catalog loader doesn't trip on a missing file.",
+  "projectiles": []
+}

@@ -1,0 +1,50 @@
+{
+  "id": "level_01",
+  "name": "Cobalt Cavern",
+  "mapSize": { "width": 1620, "height": 960 },
+  "spawn": { "x": 80, "y": 760 },
+  "camera": { "mode": "follow" },
+  "layers": [
+    {
+      "zIndex": 0,
+      "parallax": 0.0,
+      "opacity": 1.0,
+      "procedural": "gradient",
+      "colorTop": "#0f1a2b",
+      "colorBottom": "#1f3358"
+    },
+    {
+      "zIndex": 1,
+      "parallax": 0.3,
+      "opacity": 0.6,
+      "procedural": "stripes",
+      "color": "#1a2a3a",
+      "stripeH": 40
+    }
+  ],
+  "platforms": [
+    { "id": "ground",  "x": 0,    "y": 880, "w": 1620, "h": 80 },
+    { "id": "plat_1",  "x": 320,  "y": 720, "w": 160, "h": 24 },
+    { "id": "plat_2",  "x": 620,  "y": 600, "w": 160, "h": 24 },
+    { "id": "plat_3",  "x": 920,  "y": 720, "w": 160, "h": 24 },
+    { "id": "plat_4",  "x": 1220, "y": 600, "w": 200, "h": 24 }
+  ],
+  "walls": [
+    { "id": "left_wall",  "x": 0,    "y": 0, "w": 0,   "h": 0 },
+    { "id": "right_wall", "x": 1620, "y": 0, "w": 0,   "h": 0 }
+  ],
+  "enemies": [
+    { "id": "slime_a", "archetype": "slime", "x": 700,  "y": 850, "w": 40, "h": 32, "patrolMin": 620, "patrolMax": 860, "speed": 60, "contactDamage": 1 },
+    { "id": "slime_b", "archetype": "slime", "x": 1300, "y": 850, "w": 40, "h": 32, "patrolMin": 1220, "patrolMax": 1500, "speed": 70, "contactDamage": 1 }
+  ],
+  "hazards": [
+    { "id": "spike_1", "kind": "spike", "x": 460, "y": 856, "w": 60, "h": 24 },
+    { "id": "spike_2", "kind": "spike", "x": 1080, "y": 856, "w": 60, "h": 24 }
+  ],
+  "pickups": [
+    { "id": "coin_a", "x": 360, "y": 680, "w": 24, "h": 24, "score": 10 },
+    { "id": "coin_b", "x": 660, "y": 560, "w": 24, "h": 24, "score": 10 },
+    { "id": "coin_c", "x": 960, "y": 680, "w": 24, "h": 24, "score": 10 },
+    { "id": "coin_d", "x": 1280, "y": 560, "w": 24, "h": 24, "score": 10 }
+  ]
+}

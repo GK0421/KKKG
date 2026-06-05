@@ -1,0 +1,15 @@
+{
+  "name": "agf-mobile-prototype-01",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobile-portrait 2D side-scroller prototype built on Agent Game Forge. Procedural art, touch controls, no build step.",
+  "scripts": {
+    "start": "npx --yes serve -l 5180 .",
+    "serve": "npx --yes serve -l 5180 .",
+    "smoke": "bash tests/smoke.sh"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "_doc": "Enemies catalog. v1 uses inline level entries; the file is kept empty so the AGF catalog loader doesn't trip on a missing file.",
+  "enemies": []
+}

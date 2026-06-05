@@ -1,0 +1,36 @@
+{
+  "project": "agent-game-forge-mobile-prototype-01",
+  "path": "E:/GameForgeLab/agent-game-forge-workspace/games/mobile-prototype-01",
+  "updated_at": "2026-06-05T22:15:00Z",
+  "last_check": "phase-2-brief-and-progress-written",
+  "pending": [
+    "phase-3-scaffold-src-from-agf-seed",
+    "phase-3-write-data-json-files",
+    "phase-3-write-index-html-styles-css",
+    "phase-3-write-package-json-and-smoke",
+    "phase-3-run-npm-install-or-skip",
+    "phase-3-start-static-server-and-curl",
+    "phase-4-claude-code-review-and-fixes",
+    "phase-5-git-init-main-commit",
+    "phase-5-git-feature-branch",
+    "phase-5-create-remote-repo",
+    "phase-5-push-branches",
+    "phase-5-create-pr",
+    "phase-6-final-acceptance"
+  ],
+  "running": [],
+  "completed": [
+    "phase-1-env-check",
+    "phase-2-clone-agf-workspace",
+    "phase-2-read-conventions",
+    "phase-2-write-project-brief",
+    "phase-2-write-progress-json"
+  ],
+  "failed": [],
+  "blocked": [
+    {
+      "id": "gh-cli-missing",
+      "note": "gh CLI is not installed in the WSL environment. Per task rules we will not install it globally. PR creation will be attempted via the GitHub REST API (curl) or direct git push; if both are blocked by 2FA / credentials, we will leave a clear 'gh not authenticated' note in the PR template rather than fabricating success."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "_doc": "Physics config. Slightly heavier gravity than the side-scroll seed so v1 reads well on a portrait screen.",
+  "gravity": 1700,
+  "maxFallSpeed": 800
+}

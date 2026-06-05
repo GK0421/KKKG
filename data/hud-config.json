@@ -1,0 +1,7 @@
+{
+  "hpBarWidth": 220,
+  "particles": {
+    "sparkSpeed": 90,
+    "sparkLife": 0.35
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_doc": "Player config. Stats are tuned for a 540x960 mobile portrait canvas.",
+  "id": "player",
+  "size": { "w": 48, "h": 64 },
+  "bodyInsetX": 10,
+  "bodyInsetY": 8,
+  "stats": {
+    "maxHp": 5,
+    "lives": 3,
+    "invulnSec": 1.0
+  },
+  "movement": {
+    "maxSpeed": 220,
+    "accel": 12,
+    "airAccel": 7,
+    "friction": 14,
+    "jumpVelocity": -540,
+    "maxJumps": 2
+  },
+  "attack": {
+    "damage": 0,
+    "range": 0,
+    "duration": 0,
+    "cooldown": 0
+  },
+  "animations": {
+    "idle": { "sprite": "procedural://player/idle" },
+    "walk": { "sprite": "procedural://player/walk" },
+    "jump": { "sprite": "procedural://player/jump" }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_doc": "Level registry. v1 has a single main scene — the only playable level. The map is wider than the viewport so the player must scroll right to see coins and the final slime.",
+  "levels": [
+    {
+      "id": "level_01",
+      "name": "Cobalt Cavern",
+      "file": "data/level_01.json"
+    }
+  ]
+}
