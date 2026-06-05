@@ -1,0 +1,4 @@
+{
+  "_doc": "显式选择点定义。运行时优先从 data/script.json 的 branch_points 读取,此文件保留以备扩展。",
+  "choices": []
+}

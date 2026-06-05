@@ -1,0 +1,110 @@
+{
+  "_doc": "场景视觉配置。每个 scene id 对应一个 ambient + 背景渐变 + 滤镜 + BGM 状态。",
+  "defaults": {
+    "canvasSize": { "w": 540, "h": 960 },
+    "bg": {
+      "colorTop": "#0d0a08",
+      "colorBottom": "#1a1208"
+    },
+    "rain": {
+      "enabled": false,
+      "density": 0.0,
+      "color": "#7a8aa8",
+      "alpha": 0.35,
+      "speed": 380
+    },
+    "lampGlow": {
+      "enabled": false,
+      "color": "#d9a85a",
+      "radius": 220
+    },
+    "paperGrain": {
+      "enabled": false,
+      "color": "#3a2a1a",
+      "alpha": 0.25
+    },
+    "bgm": {
+      "ambient": "none"
+    }
+  },
+  "scenes": {
+    "scene_01": {
+      "bg": { "colorTop": "#0d0a18", "colorBottom": "#1a2030" },
+      "rain": { "enabled": true, "density": 0.6, "color": "#9aa6c0", "alpha": 0.4, "speed": 360 },
+      "lampGlow": { "enabled": false },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_light" },
+      "title": "上山"
+    },
+    "scene_02": {
+      "bg": { "colorTop": "#1a1208", "colorBottom": "#0a0805" },
+      "rain": { "enabled": true, "density": 0.5, "color": "#9aa6c0", "alpha": 0.3, "speed": 320 },
+      "lampGlow": { "enabled": true, "color": "#d9a85a", "radius": 280 },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_mid" },
+      "title": "入店"
+    },
+    "scene_03": {
+      "bg": { "colorTop": "#1a1208", "colorBottom": "#0a0805" },
+      "rain": { "enabled": true, "density": 0.5, "color": "#9aa6c0", "alpha": 0.3, "speed": 320 },
+      "lampGlow": { "enabled": true, "color": "#d9a85a", "radius": 240 },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_mid" },
+      "title": "她的眼睛"
+    },
+    "scene_04": {
+      "bg": { "colorTop": "#0d0a08", "colorBottom": "#1a1208" },
+      "rain": { "enabled": true, "density": 0.8, "color": "#8a96b0", "alpha": 0.45, "speed": 420 },
+      "lampGlow": { "enabled": true, "color": "#d9a85a", "radius": 200 },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_heavy" },
+      "title": "夜深"
+    },
+    "scene_05": {
+      "bg": { "colorTop": "#0a0805", "colorBottom": "#1a0f08" },
+      "rain": { "enabled": true, "density": 0.9, "color": "#7a86a0", "alpha": 0.5, "speed": 460 },
+      "lampGlow": { "enabled": true, "color": "#d9a85a", "radius": 160 },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_heavy" },
+      "title": "沉默的路"
+    },
+    "scene_06": {
+      "bg": { "colorTop": "#1a1208", "colorBottom": "#0a0805" },
+      "rain": { "enabled": true, "density": 0.8, "color": "#8a96b0", "alpha": 0.4, "speed": 420 },
+      "lampGlow": { "enabled": true, "color": "#d9a85a", "radius": 220 },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_heavy" },
+      "title": "续茶"
+    },
+    "ending_tea": {
+      "bg": { "colorTop": "#1a1208", "colorBottom": "#0a0805" },
+      "rain": { "enabled": true, "density": 0.5, "color": "#9aa6c0", "alpha": 0.3, "speed": 300 },
+      "lampGlow": { "enabled": true, "color": "#d9a85a", "radius": 280 },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_mid" },
+      "title": "续茶"
+    },
+    "ending_silent": {
+      "bg": { "colorTop": "#0d0a18", "colorBottom": "#1a2030" },
+      "rain": { "enabled": true, "density": 0.6, "color": "#9aa6c0", "alpha": 0.3, "speed": 320 },
+      "lampGlow": { "enabled": false },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_light" },
+      "title": "一碗粥"
+    },
+    "ending_rain": {
+      "bg": { "colorTop": "#0d0a18", "colorBottom": "#1a2030" },
+      "rain": { "enabled": true, "density": 0.3, "color": "#aab6d0", "alpha": 0.25, "speed": 280 },
+      "lampGlow": { "enabled": false },
+      "paperGrain": { "enabled": false },
+      "bgm": { "ambient": "rain_light" },
+      "title": "雨一直下"
+    }
+  },
+  "memory_overlay": {
+    "bg": { "colorTop": "#3a2a1a", "colorBottom": "#1a0f0a" },
+    "rain": { "enabled": false },
+    "lampGlow": { "enabled": true, "color": "#e8c47a", "radius": 200 },
+    "paperGrain": { "enabled": true, "color": "#3a2a1a", "alpha": 0.35 }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "_doc": "角色卡。定义每个说话人的字体风格、心境、说话方式。",
+  "characters": {
+    "无名": {
+      "displayName": "无名",
+      "kind": "protagonist",
+      "fontSize": 22,
+      "fontStyle": "normal",
+      "color": "#f2e7d0",
+      "nameColor": "#e5b84a",
+      "voice": "short",
+      "mood": "retired-swordsman"
+    },
+    "她": {
+      "displayName": "她",
+      "kind": "npc",
+      "fontSize": 22,
+      "fontStyle": "normal",
+      "color": "#f2e7d0",
+      "nameColor": "#d9a85a",
+      "voice": "soft",
+      "mood": "curious"
+    },
+    "掌柜": {
+      "displayName": "掌柜",
+      "kind": "npc",
+      "fontSize": 20,
+      "fontStyle": "normal",
+      "color": "#b49c7b",
+      "nameColor": "#b49c7b",
+      "voice": "plain",
+      "mood": "neutral"
+    },
+    "江湖客甲": {
+      "displayName": "江湖客甲",
+      "kind": "npc",
+      "fontSize": 18,
+      "fontStyle": "normal",
+      "color": "#b49c7b",
+      "nameColor": "#7a6a4a",
+      "voice": "boastful",
+      "mood": "drunk"
+    },
+    "江湖客乙": {
+      "displayName": "江湖客乙",
+      "kind": "npc",
+      "fontSize": 18,
+      "fontStyle": "normal",
+      "color": "#b49c7b",
+      "nameColor": "#7a6a4a",
+      "voice": "boastful",
+      "mood": "drunk"
+    },
+    "江湖客丙": {
+      "displayName": "江湖客丙",
+      "kind": "npc",
+      "fontSize": 18,
+      "fontStyle": "normal",
+      "color": "#b49c7b",
+      "nameColor": "#7a6a4a",
+      "voice": "boastful",
+      "mood": "drunk"
+    },
+    "江湖客丁": {
+      "displayName": "江湖客丁",
+      "kind": "npc",
+      "fontSize": 18,
+      "fontStyle": "normal",
+      "color": "#b49c7b",
+      "nameColor": "#7a6a4a",
+      "voice": "thoughtful",
+      "mood": "wary"
+    }
+  },
+  "narrator": {
+    "fontSize": 18,
+    "fontStyle": "normal",
+    "color": "#d0c4a8",
+    "align": "left"
+  },
+  "inner_voice": {
+    "fontSize": 18,
+    "fontStyle": "italic",
+    "color": "#c4b08a",
+    "align": "left",
+    "prefix": ""
+  }
+}
