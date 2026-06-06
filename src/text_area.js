@@ -1,20 +1,26 @@
-// 客栈夜雨 — 文字主区渲染 (在背景之上, 在 HUD 之下, 在选择/回忆之下)
-// 旁白/对话/独白/pause 共用同一块文字区域。
+// 客栈夜雨 — 文字主区渲染
+// 简化版: 不堆叠,只显示"当前 active 行"和"最近 N 行已完成行"
+// 排版: 文字从文字区顶部往下铺,最新行在最底
 
 const TEXT_AREA = Object.freeze({
   x: 24,
-  y: VIEW.h * 0.6,
-  w: VIEW.w - 48,
-  h: VIEW.h * 0.32,
-  padding: 16
+  y: VIEW.h * 0.62,        // 596
+  w: VIEW.w - 48,            // 492
+  h: VIEW.h * 0.32,          // 307
+  padding: 16,
+  // 行高
+  lineH: 32,
+  // 名字 (speaker) 高度
+  nameH: 22,
+  // 最多显示已完成的行数
+  maxCompletedLines: 6
 });
 
 function getLineStyle(line, character) {
   if (line.type === "narration") {
     return {
-      font: `${COLORS && "narrator"} ${18}px ${FONT.family}`,
+      font: `18px ${FONT.family}`,
       color: COLORS.textMuted,
-      align: "left",
       italic: false,
       showName: false
     };
@@ -23,28 +29,23 @@ function getLineStyle(line, character) {
     return {
       font: `italic 18px ${FONT.family}`,
       color: COLORS.textMuted,
-      align: "left",
       italic: true,
       showName: false
     };
   }
   if (line.type === "dialog") {
-    const charColor = (character && character.color) || COLORS.text;
-    const charNameColor = (character && character.nameColor) || COLORS.name;
     return {
-      font: `${character && character.fontSize ? character.fontSize : 22}px ${FONT.family}`,
-      color: charColor,
-      align: "left",
+      font: `${(character && character.fontSize) || 22}px ${FONT.family}`,
+      color: (character && character.color) || COLORS.text,
       italic: false,
       showName: true,
-      nameText: (character && character.displayName) || line.speaker,
-      nameColor: charNameColor
+      nameText: (character && character.displayName) || line.speaker || "未知",
+      nameColor: (character && character.nameColor) || COLORS.name
     };
   }
   return {
     font: `18px ${FONT.family}`,
     color: COLORS.text,
-    align: "left",
     italic: false,
     showName: false
   };
@@ -55,77 +56,109 @@ function drawTextArea(ctx) {
   if (script.mode === "title") return; // 标题独立
   if (script.mode === "branch") return; // 选择独立
 
+  // === DEBUG: 画一个红色边框,验证 drawTextArea 被调用 ===
+  ctx.save();
+  ctx.strokeStyle = "#ff0000";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(2, 2, VIEW.w - 4, VIEW.h - 4);
+  ctx.restore();
+
   // 文字区背景
   ctx.save();
-  ctx.fillStyle = "rgba(8, 6, 4, 0.62)";
+  ctx.fillStyle = "rgba(8, 6, 4, 0.78)";
   ctx.fillRect(TEXT_AREA.x, TEXT_AREA.y, TEXT_AREA.w, TEXT_AREA.h);
-  ctx.strokeStyle = "rgba(217, 168, 90, 0.32)";
+  ctx.strokeStyle = "rgba(217, 168, 90, 0.45)";
   ctx.lineWidth = 1;
   ctx.strokeRect(TEXT_AREA.x + 0.5, TEXT_AREA.y + 0.5, TEXT_AREA.w, TEXT_AREA.h);
 
-  // 把已完成的行 + 当前正在显示的行堆在一起渲染
-  const linesToShow = [...typography.completed];
-  if (typography.active) linesToShow.push(typography.active);
-
-  // 倒序从下往上,最新行在最底
-  const lineH = 30;
+  // 文字区内部坐标系: 文字从 padX, padY 开始
   const padX = TEXT_AREA.x + TEXT_AREA.padding;
   const padY = TEXT_AREA.y + TEXT_AREA.padding;
-  const bottomY = TEXT_AREA.y + TEXT_AREA.h - TEXT_AREA.padding;
+  const innerW = TEXT_AREA.w - TEXT_AREA.padding * 2;
+  const innerBottomY = TEXT_AREA.y + TEXT_AREA.h - TEXT_AREA.padding;
+  const lineH = TEXT_AREA.lineH;
 
-  let y = bottomY;
-  for (let i = linesToShow.length - 1; i >= 0; i--) {
-    const entry = linesToShow[i];
+  // 先把"已完成行"（最多 6 条）拿出来,从最早的开始渲染
+  const recentCompleted = typography.completed.slice(-TEXT_AREA.maxCompletedLines);
+
+  // 累计 y (从顶部 padY 开始往下铺)
+  let y = padY;
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+
+  // 1) 渲染"已完成"的行 (静态, 全部显示)
+  for (const entry of recentCompleted) {
     const line = entry.line;
     const style = getLineStyle(line, state.characters[line.speaker]);
-    ctx.font = style.font;
-    ctx.textBaseline = "alphabetic";
-    ctx.textAlign = style.align || "left";
-    ctx.fillStyle = style.color;
-    if (style.italic) {
-      // 斜体: ctx.font 已含 italic, 但有时浏览器渲染会失效
-      // 用 transform 微调
-      ctx.save();
-      ctx.translate(padX, y);
-      ctx.transform(1, 0, -0.12, 1, 0, 0);
-      drawOneLine(ctx, entry, line, style, 0, 0, lineH);
-      ctx.restore();
-    } else {
-      drawOneLine(ctx, entry, line, style, padX, y, lineH);
-    }
-    y -= lineH;
-    if (style.showName) y -= 8; // 名字上方留空
-    if (y < padY - lineH) break; // 超出区
+    y = renderOneLine(ctx, entry, line, style, padX, y, innerW, lineH, false);
+    if (y > innerBottomY) break;
   }
+
+  // === DEBUG: 在文字区右下角显示状态 ===
+  ctx.save();
+  ctx.fillStyle = "#00ff00";
+  ctx.font = "12px monospace";
+  ctx.textBaseline = "top";
+  ctx.fillText("mode=" + script.mode, padX, innerBottomY - 60);
+  ctx.fillText("active=" + (typography.active ? "Y" : "N"), padX, innerBottomY - 44);
+  ctx.fillText("completed=" + typography.completed.length, padX, innerBottomY - 28);
+  ctx.fillText("revealed=" + (typography.active ? typography.active.revealed : "-"), padX, innerBottomY - 12);
+  ctx.restore();
+
+  // 2) 渲染"当前 active"行 (如果还有空间)
+  if (typography.active && y <= innerBottomY) {
+    const entry = typography.active;
+    const line = entry.line;
+    const style = getLineStyle(line, state.characters[line.speaker]);
+    y = renderOneLine(ctx, entry, line, style, padX, y, innerW, lineH, true);
+  }
+
   ctx.restore();
 }
 
-function drawOneLine(ctx, entry, line, style, x, y, lineH) {
+function renderOneLine(ctx, entry, line, style, x, y, maxW, lineH, isActive) {
+  // 名字行 (dialog only)
   if (style.showName && style.nameText) {
     ctx.fillStyle = style.nameColor;
     ctx.font = `bold 16px ${FONT.family}`;
+    ctx.textBaseline = "top";
     ctx.fillText(style.nameText + "：", x, y);
-    ctx.font = style.font;
-    ctx.fillStyle = style.color;
+    y += TEXT_AREA.nameH;
   }
-  // 已揭示文本
+
+  // 主体文字
   const fullText = entry.text || "";
-  const revealed = entry.revealed;
-  const shown = fullText.substring(0, revealed);
-  // 简单换行
-  const wrapped = wrapTextForCanvas(ctx, shown, TEXT_AREA.w - TEXT_AREA.padding * 2);
-  const arr = wrapped.split("\n");
-  let yy = y;
-  for (let k = 0; k < arr.length; k++) {
-    ctx.fillText(arr[k], x, yy);
-    yy += lineH;
+  const shown = isActive ? fullText.substring(0, entry.revealed) : fullText;
+
+  ctx.font = style.font;
+  ctx.fillStyle = style.color;
+  ctx.textBaseline = "top";
+
+  if (style.italic) {
+    // 斜体: 用 transform 偏置
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.transform(1, 0, -0.12, 1, 0, 0);
+    drawWrappedText(ctx, shown, 0, 0, maxW, lineH);
+    ctx.restore();
+  } else {
+    drawWrappedText(ctx, shown, x, y, maxW, lineH);
   }
-  // 闪烁光标
-  if (!entry.done && typography.active === entry) {
-    const lastLine = arr[arr.length - 1] || "";
-    const w = ctx.measureText(lastLine).width;
-    if (Math.floor(typography.promptBlinkT / 600) % 2 === 0) {
-      ctx.fillRect(x + w + 2, y - 16, 2, 20);
-    }
+
+  // 计算本行占用了几行 (wrap)
+  const wrapped = wrapTextForCanvas(ctx, shown, maxW);
+  const lines = countLines(wrapped);
+  y += lines * lineH + 4; // 段间 4px
+
+  return y;
+}
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+  if (!text) return;
+  const wrapped = wrapTextForCanvas(ctx, text, maxWidth);
+  const lines = wrapped.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    ctx.fillText(lines[i], x, y + i * lineHeight);
   }
 }
